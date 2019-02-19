@@ -4,10 +4,6 @@ author:
 date: 
 autosize: true
 
-Source
-========================================================
-- Galit Shmueli, Videos on Exponential Smoothing on Youtube.
-
 
 Moving Average
 ========================================================
@@ -101,4 +97,172 @@ Expanded Form
 ==========================================================
 - For using more than 1 previous value to do forecast calculations.
 - TODO: Example
+
+Simple Exponential Smoothing HoltWinters Filtering (1)
+========================================================
+Time series data preparation
+```{r}
+## preparee a time series dataset
+x <- uspop + rnorm(uspop, sd = 5)
+```
+
+```{r s1, echo = FALSE}
+head(x)
+plot(x)
+```
+
+Simple Exponential Smoothing HoltWinters Filtering (2)
+========================================================
+Apply HoltWinters filtering with alpha (level) only
+> m <- HoltWinters(x, beta = FALSE, gamma = FALSE)
+
+> m
+
+```{r, echo = FALSE}
+(m <- HoltWinters(x, beta = FALSE, gamma = FALSE))
+
+```
+
+Simple Exponential Smoothing HoltWinters Filtering (3)
+========================================================
+> fitted(m)
+
+```{r, echo = FALSE}
+fitted(m) #extracts fitted values
+```
+
+Simple Exponential Smoothing HoltWinters Filtering (4)
+========================================================
+> plot(m)
+
+> lines(fitted(m)[,1], col = 2)
+
+```{r, echo = FALSE}
+plot(m)
+lines(fitted(m)[,1], col = 2)
+
+```
+
+Holt's Exponential Smoothing HoltWinters Filtering (1)
+========================================================
+> m <- HoltWinters(x, gamma = FALSE)
+
+> m
+
+```{r, echo = FALSE}
+(m <- HoltWinters(x, gamma = FALSE))
+```
+  
+Holt's Exponential Smoothing HoltWinters Filtering (2)
+========================================================
+> fitted(m)
+
+```{r, echo = FALSE}
+fitted(m)
+```
+
+Holt's Exponential Smoothing HoltWinters Filtering (3)
+========================================================
+> plot(m)
+
+> lines(fitted(m)[,1], col = 4)
+
+```{r, echo = FALSE}
+par(mar=c(1,1,1,1))
+plot(m)
+lines(fitted(m)[,1], col = 4)
+```
+
+
+Winter's Exponential Smoothing HoltWinters Filtering (1)
+========================================================
+> plot(co2) 
+
+```{r, echo=FALSE}
+plot(co2)
+
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (2)
+========================================================
+> m <- HoltWinters(co2)
+
+> m
+
+```{r, echo=FALSE}
+(m <- HoltWinters(co2))
+
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (3)
+========================================================
+> fitted(m)
+
+```{r, echo = FALSE}
+fitted(m)
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (4)
+========================================================
+> plot(m)
+
+```{r, echo = FALSE}
+plot(m)
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (5)
+========================================================
+> plot(fitted(m))
+
+```{r, echo = FALSE}
+plot(fitted(m))
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (6)
+========================================================
+> plot(AirPassengers)
+
+```{r, echo = FALSE}
+plot(AirPassengers)
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (7)
+========================================================
+> m <- HoltWinters(AirPassengers, seasonal = "mult")
+
+```{r, echo = FALSE}
+(m <- HoltWinters(AirPassengers, seasonal = "mult"))
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (8)
+========================================================
+> plot(m)
+
+```{r, echo = FALSE}
+plot(m)
+```
+
+Compare HoltWinters() vs ets()
+========================================================
+Using HoltWinters () and ets() functions, the alpha, beta, and gamma results could be different. The reason are listed as below according to the ets() author Rob J Hyndman, he also concluded that Where there is a difference between ets() and HoltWinters(), the results from ets() are usually more reliable.
+
+- Optimizing different criterion. The former optimizing the MSE, and the later optimizing the likehood function.
+
+- The two functions use different optimization routines and different starting values. 
+
+- ets() searches over a restricted parameter space to ensure the resulting model is forecastable. HoltWinters() ignores this issue (it was written before the problem was even discovered).
+
+
+References
+========================================================
+
+https://otexts.com/fpp2/ets-forecasting.html
+
+https://www.youtube.com/watch?v=mrLiC1biciY
+
+HoltWinters's help function in R
+
+https://robjhyndman.com/hyndsight/estimation2/
+
+- Galit Shmueli, Videos on Exponential Smoothing on Youtube.
 
