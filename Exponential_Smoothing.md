@@ -1,6 +1,6 @@
 Exponential Smoothing
 ========================================================
-author: CUNY 624
+author: CUNY SPS DATA 624
 date: 2/19/19
 autosize: true
 
@@ -9,7 +9,7 @@ Moving Average
 ========================================================
 - Averages all the previous data to come up with a forecast.
 - Does not handle seasonality well
-- Does not handle negative trends well 
+- Does not handle short-term trends changes well 
 
 
 $$ \\ \frac{1}{n}\sum_{i=0}^{n-1}p_{m-i} $$
@@ -38,9 +38,9 @@ Alpha Parameter
 - Set between 0 and 1
 - Weights the previous forecast values relative to the new measured values
 - Determines how much weight is given to the past
-        - alpha=1: past values have no effect on forecast
-        - alpha=0: past values have equal effect on forecast (over-smoothing)
-        - Typical: alpha is closer to 0 than 1
+  + alpha=1: past values have no effect on forecast
+  + alpha=0: past values have equal effect on forecast (over-smoothing)
+  + Typical: alpha is closer to 0 than 1
 
             
 
@@ -96,7 +96,7 @@ Simple Exponential Smoothing HoltWinters Filtering (1)
 
 
 ```r
-## preparee a time series dataset
+## prepare a time series dataset
 x <- uspop + rnorm(uspop, sd = 5);
 ```
 <center>
@@ -118,13 +118,13 @@ Call:
 HoltWinters(x = x, beta = FALSE, gamma = FALSE)
 
 Smoothing parameters:
- alpha: 0.9999235
+ alpha: 0.9999222
  beta : FALSE
  gamma: FALSE
 
 Coefficients:
       [,1]
-a 199.5754
+a 203.1669
 ```
 
 Simple Exponential Smoothing HoltWinters Filtering (3)
@@ -140,24 +140,24 @@ Start = 1800
 End = 1970 
 Frequency = 0.1 
            xhat      level
-1800   9.019391   9.019391
-1810   2.797624   2.797624
-1820   4.620203   4.620203
-1830   7.855426   7.855426
-1840  19.842773  19.842773
-1850  13.619210  13.619210
-1860  21.255531  21.255531
-1870  16.355477  16.355477
-1880  36.828866  36.828866
-1890  47.690883  47.690883
-1900  58.314223  58.314223
-1910  76.009426  76.009426
-1920  98.313978  98.313978
-1930 101.400364 101.400364
-1940 118.711880 118.711880
-1950 127.242994 127.242994
-1960 153.117919 153.117919
-1970 183.059963 183.059963
+1800   2.500834   2.500834
+1810   4.997065   4.997065
+1820  12.369448  12.369448
+1830   4.893300   4.893300
+1840  15.364065  15.364065
+1850  20.265549  20.265549
+1860  22.825718  22.825718
+1870  32.051782  32.051782
+1880  46.278152  46.278152
+1890  40.325896  40.325896
+1900  65.430199  65.430199
+1910  76.815046  76.815046
+1920  88.956030  88.956030
+1930 107.745051 107.745051
+1940 116.414514 116.414514
+1950 132.904663 132.904663
+1960 149.254069 149.254069
+1970 188.201284 188.201284
 ```
 
 Simple Exponential Smoothing HoltWinters Filtering (4)
@@ -186,14 +186,14 @@ Call:
 HoltWinters(x = x, gamma = FALSE)
 
 Smoothing parameters:
- alpha: 0.7876745
- beta : 0.5205937
+ alpha: 0.3446334
+ beta : 1
  gamma: FALSE
 
 Coefficients:
        [,1]
-a 200.35295
-b  22.00426
+a 198.14703
+b  25.83872
 ```
   
 Holt's Exponential Smoothing HoltWinters Filtering (2)
@@ -208,24 +208,24 @@ Time Series:
 Start = 1810 
 End = 1970 
 Frequency = 0.1 
-             xhat      level      trend
-1810  -3.42509614   2.797147 -6.2222436
-1820  -0.01105308   2.912091 -2.9231438
-1830   6.48804052   6.185367  0.3026737
-1840  22.78721633  17.007946  5.7792705
-1850  17.58509312  15.565436  2.0196570
-1860  24.00165408  20.476664  3.5249905
-1870  18.36811764  17.978660  0.3894575
-1880  40.87049829  32.910413  7.9600854
-1890  57.00057855  46.243396 10.7571824
-1900  69.33213015  58.035943 11.2961868
-1910  88.62755706  74.592733 14.0348239
-1920 114.26617083  96.258649 18.0075223
-1930 116.86417520 104.132289 12.7318866
-1940 131.81070603 118.320609 13.4900970
-1950 139.83068601 128.213350 11.6173360
-1960 167.36495139 150.298261 17.0666901
-1970 203.23281888 179.729317 23.5035016
+           xhat      level     trend
+1810   7.493683   4.997259  2.496425
+1820  13.351206   9.174233  4.176974
+1830  11.698025  10.436129  1.261896
+1840  15.487363  12.961746  2.525617
+1850  21.306688  17.134217  4.172471
+1860  26.526313  21.830265  4.696048
+1870  35.031379  28.430822  6.600557
+1880  49.384726  38.907774 10.476952
+1890  53.617408  46.262591  7.354817
+1900  69.115737  57.689164 11.426573
+1910  85.849798  71.769481 14.080317
+1920 102.071789  86.920635 15.151154
+1930 121.134342 104.027489 17.106854
+1940 134.988440 119.507964 15.480476
+1950 149.033522 134.270743 14.762779
+1960 163.949194 149.109968 14.839225
+1970 195.506669 172.308319 23.198351
 ```
 
 Holt's Exponential Smoothing HoltWinters Filtering (3)

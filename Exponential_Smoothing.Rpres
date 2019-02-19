@@ -1,6 +1,6 @@
 Exponential Smoothing
 ========================================================
-author: Vikas, Ann, simplymathematics
+author: CUNY SPS DATA 624
 date: 2/19/19
 autosize: true
 
@@ -9,7 +9,7 @@ Moving Average
 ========================================================
 - Averages all the previous data to come up with a forecast.
 - Does not handle seasonality well
-- Does not handle negative trends well 
+- Does not handle short-term trends changes well 
 
 
 $$ \\ \frac{1}{n}\sum_{i=0}^{n-1}p_{m-i} $$
@@ -38,9 +38,9 @@ Alpha Parameter
 - Set between 0 and 1
 - Weights the previous forecast values relative to the new measured values
 - Determines how much weight is given to the past
-        - alpha=1: past values have no effect on forecast
-        - alpha=0: past values have equal effect on forecast (over-smoothing)
-        - Typical: alpha is closer to 0 than 1
+  + alpha=1: past values have no effect on forecast
+  + alpha=0: past values have equal effect on forecast (over-smoothing)
+  + Typical: alpha is closer to 0 than 1
 
             
 
