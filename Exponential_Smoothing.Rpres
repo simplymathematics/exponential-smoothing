@@ -102,3 +102,213 @@ Expanded Form
 - For using more than 1 previous value to do forecast calculations.
 - TODO: Example
 
+
+
+Holt-Winters Filtering 
+========================================================
+HoltWinters {stats} 
+
+Usage
+
+HoltWinters(x, alpha = NULL, beta = NULL, gamma = NULL,
+            seasonal = c("additive", "multiplicative"), ...)
+            
+Arguments
+
+- x: An object of class ts
+- alpha: alpha parameter of Holt-Winters Filter.
+- beta: beta parameter of Holt-Winters Filter. If set to FALSE, the function will do exponential smoothing.
+- gamma: gamma parameter used for the seasonal component. If set to FALSE, an non-seasonal model is fitted.
+- seasonal: Character string to select an "additive" (the default) or "multiplicative" seasonal model. The first few characters are sufficient. (Only takes effect if gamma is non-zero).
+
+
+Simple Exponential Smoothing HoltWinters Filtering (1)
+========================================================
+Time series data preparation
+```{r}
+## preparee a time series dataset
+x <- uspop + rnorm(uspop, sd = 5)
+```
+
+```{r s1, echo = FALSE}
+head(x)
+plot(x)
+```
+
+Simple Exponential Smoothing HoltWinters Filtering (2)
+========================================================
+Apply HoltWinters filtering with alpha (level) only
+> m <- HoltWinters(x, beta = FALSE, gamma = FALSE)
+
+> m
+
+```{r, echo = FALSE}
+(m <- HoltWinters(x, beta = FALSE, gamma = FALSE))
+
+```
+
+Simple Exponential Smoothing HoltWinters Filtering (3)
+========================================================
+> fitted(m)
+
+```{r, echo = FALSE}
+fitted(m) #extracts fitted values
+```
+
+Simple Exponential Smoothing HoltWinters Filtering (4)
+========================================================
+> plot(m)
+
+> lines(fitted(m)[,1], col = 2)
+
+```{r, echo = FALSE}
+plot(m)
+lines(fitted(m)[,1], col = 2)
+
+```
+
+Holt's Exponential Smoothing HoltWinters Filtering (1)
+========================================================
+> m <- HoltWinters(x, gamma = FALSE)
+
+> m
+
+```{r, echo = FALSE}
+(m <- HoltWinters(x, gamma = FALSE))
+```
+  
+Holt's Exponential Smoothing HoltWinters Filtering (2)
+========================================================
+> fitted(m)
+
+```{r, echo = FALSE}
+fitted(m)
+```
+
+Holt's Exponential Smoothing HoltWinters Filtering (3)
+========================================================
+> plot(m)
+
+> lines(fitted(m)[,1], col = 4)
+
+```{r, echo = FALSE}
+par(mar=c(1,1,1,1))
+plot(m)
+lines(fitted(m)[,1], col = 4)
+```
+
+
+Winter's Exponential Smoothing HoltWinters Filtering (1)
+========================================================
+> plot(co2) 
+
+```{r, echo=FALSE}
+plot(co2)
+
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (2)
+========================================================
+> m <- HoltWinters(co2)
+
+> m
+
+```{r, echo=FALSE}
+(m <- HoltWinters(co2))
+
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (3)
+========================================================
+> fitted(m)
+
+```{r, echo = FALSE}
+fitted(m)
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (4)
+========================================================
+> plot(m)
+
+```{r, echo = FALSE}
+plot(m)
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (5)
+========================================================
+> plot(fitted(m))
+
+```{r, echo = FALSE}
+plot(fitted(m))
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (6)
+========================================================
+> plot(AirPassengers)
+
+```{r, echo = FALSE}
+plot(AirPassengers)
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (7)
+========================================================
+> m <- HoltWinters(AirPassengers, seasonal = "mult")
+
+```{r, echo = FALSE}
+(m <- HoltWinters(AirPassengers, seasonal = "mult"))
+```
+
+Winter's Exponential Smoothing HoltWinters Filtering (8)
+========================================================
+> plot(m)
+
+```{r, echo = FALSE}
+plot(m)
+```
+
+Compare HoltWinters() and ets()
+========================================================
+The Alpha, beta, and gamma can be different when using HoltWinters () and ets(). According to Rob J Hyndman, he concluded that Where there is a difference between ets() and HoltWinters(), the results from ets() are usually more reliable. He explained on the differences as below:
+
+- Optimize different criterion. The former optimizing the MSE, and the later optimizing the likehood function.
+
+- The two functions use different optimization routines and different starting values. 
+
+- Ets() searches over a restricted parameter space to ensure the resulting model is forecastable. HoltWinters() ignores this issue (the function was written before the problem was discovered).
+
+
+Next step: explore forecast() and prophet()
+========================================================
+Both functions produce time series forecasting, and work with with yearly, weekly, and daily seasonality.
+
+- forecast() 
+
+> forecast(ausbeer, h=4) # time series or time series model
+
+- Prophet()
+
+> prophet(history) # dataframe with a date type of column
+
+- some advantages prophet has over forecast to be explored further: 
+
+  + Prophet will work well for daily data while forecast are designed for weekly/monthly/yearly data.
+  
+  + Prophet and do well on problems with a piecewise trend and multiple seasonality, and plus holiday effects.
+
+  + Prophet is more intuitive than forecast, and robust to missing data and shifts in the trend, and typically handles outliers well.
+   
+
+References
+========================================================
+
+https://otexts.com/fpp2/ets-forecasting.html
+
+https://www.youtube.com/watch?v=mrLiC1biciY
+
+HoltWinters's help function in R
+
+https://robjhyndman.com/hyndsight/estimation2/
+
+https://github.com/facebook/prophet/issues/177
+
+https://www.youtube.com/watch?v=n9GOvto69aQ
