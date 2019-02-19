@@ -18,7 +18,7 @@ Weighted Moving Average
 ========================================================
 - like the above, but there are scalar multipliers included
 - defined mathematically as a convolution of the data with a fixed weighting function
-- For an n-day moving average, the weights descrease in an arithmetic progression
+- For an n-day moving average, the weights decrease in an arithmetic progression
 
 
 $$ \\ WMA = np_m + (n-1) p_{m-1} + ... + 2p_{M-n+2} + p_{m-n+1} $$
@@ -49,21 +49,21 @@ Optimization
 Usually you choose alpha to minimize your squared sum error, defined as:
 $$ SSE = \sum_{t=1}^{T}(y_t-\hat{y}_{t|t-1})^2 $$
 
-Because this is a non-linear function, optimization is non-trivial. Specific methods include calculus, iterative methods, and heurisitics.
+Because this is a non-linear function, optimization is non-trivial. Specific methods include calculus, iterative methods, and heuristics.
 
 
 
 Why is it called exponential smoothing?
 ======================================================
 - It uses a convolution of the exponential window function with the data
-- By using the recursive definition, we see an exponentially decreasing weight on our previously forecasted data
+- By using the recursive definition, we see an exponentially decreasing weight on our previously predicted data
 
 $$ \alpha [x_t + (1-\alpha)x_{t-1} + (1-\alpha)^2 x_{t-2} + (1-\alpha)^3 x_{t-3} + \cdots + (1-\alpha)^{t-1} x_1 $$
 
 
 Time Constant
 ======================================================
-The time constant of an exponential moving average is the period for the forecasted function to reach
+The time constant of an exponential moving average is the period for the predicted function to reach
 $$ 1-\frac{1}{e} \approx 63.2\% $$
 This constant can define alpha
 $$ \alpha  = 1-e^{- \frac{\Delta T}{\tau}} $$
@@ -219,11 +219,11 @@ plot(m)
 Compare HoltWinters() vs ets()
 ========================================================
 
-- Optimizing different criterion. The former optimizing the MSE, and the later optimizing the likehood function.
+- Optimizing different criterion. The former optimizing the MSE, and the later optimizing the likelihood function.
 
 - The two functions use different optimization routines and different starting values. 
 
-- ets() searches over a restricted parameter space to ensure the resulting model is forecastable. HoltWinters() ignores this issue (it was written before the problem was even discovered).
+- ets() searches over a restricted parameter space to ensure the resulting model is useful for forecasting. HoltWinters() ignores this issue (it was written before the problem was even discovered).
 
 - According to Hyndman, ets() is usually more reliable.
 

@@ -18,7 +18,7 @@ Weighted Moving Average
 ========================================================
 - like the above, but there are scalar multipliers included
 - defined mathematically as a convolution of the data with a fixed weighting function
-- For an n-day moving average, the weights descrease in an arithmetic progression
+- For an n-day moving average, the weights decrease in an arithmetic progression
 
 
 $$ \\ WMA = np_m + (n-1) p_{m-1} + ... + 2p_{M-n+2} + p_{m-n+1} $$
@@ -49,21 +49,21 @@ Optimization
 Usually you choose alpha to minimize your squared sum error, defined as:
 $$ SSE = \sum_{t=1}^{T}(y_t-\hat{y}_{t|t-1})^2 $$
 
-Because this is a non-linear function, optimization is non-trivial. Specific methods include calculus, iterative methods, and heurisitics.
+Because this is a non-linear function, optimization is non-trivial. Specific methods include calculus, iterative methods, and heuristics.
 
 
 
 Why is it called exponential smoothing?
 ======================================================
 - It uses a convolution of the exponential window function with the data
-- By using the recursive definition, we see an exponentially decreasing weight on our previously forecasted data
+- By using the recursive definition, we see an exponentially decreasing weight on our previously predicted data
 
 $$ \alpha [x_t + (1-\alpha)x_{t-1} + (1-\alpha)^2 x_{t-2} + (1-\alpha)^3 x_{t-3} + \cdots + (1-\alpha)^{t-1} x_1 $$
 
 
 Time Constant
 ======================================================
-The time constant of an exponential moving average is the period for the forecasted function to reach
+The time constant of an exponential moving average is the period for the predicted function to reach
 $$ 1-\frac{1}{e} \approx 63.2\% $$
 This constant can define alpha
 $$ \alpha  = 1-e^{- \frac{\Delta T}{\tau}} $$
@@ -118,13 +118,13 @@ Call:
 HoltWinters(x = x, beta = FALSE, gamma = FALSE)
 
 Smoothing parameters:
- alpha: 0.9999201
+ alpha: 0.999958
  beta : FALSE
  gamma: FALSE
 
 Coefficients:
       [,1]
-a 197.7579
+a 193.9583
 ```
 
 Simple Exponential Smoothing HoltWinters Filtering (3)
@@ -140,24 +140,24 @@ Start = 1800
 End = 1970 
 Frequency = 0.1 
            xhat      level
-1800   2.612742   2.612742
-1810   8.076358   8.076358
-1820   2.747034   2.747034
-1830  -1.061733  -1.061733
-1840  11.085949  11.085949
-1850  22.007960  22.007960
-1860  23.310112  23.310112
-1870  25.639726  25.639726
-1880  40.441037  40.441037
-1890  42.418249  42.418249
-1900  60.028360  60.028360
-1910  76.830116  76.830116
-1920  99.387686  99.387686
-1930 103.223456 103.223456
-1940 124.365715 124.365715
-1950 134.667001 134.667001
-1960 139.993702 139.993702
-1970 177.692482 177.692482
+1800   2.370047   2.370047
+1810  -2.473228  -2.473228
+1820  11.707958  11.707958
+1830  11.538173  11.538173
+1840  12.907174  12.907174
+1850  22.492257  22.492257
+1860  17.889808  17.889808
+1870  31.749000  31.749000
+1880  31.033254  31.033254
+1890  49.253227  49.253227
+1900  52.655011  52.655011
+1910  79.025666  79.025666
+1920  90.584660  90.584660
+1930 110.207885 110.207885
+1940 131.761343 131.761343
+1950 124.202704 124.202704
+1960 148.109506 148.109506
+1970 175.064013 175.064013
 ```
 
 Simple Exponential Smoothing HoltWinters Filtering (4)
@@ -186,14 +186,14 @@ Call:
 HoltWinters(x = x, gamma = FALSE)
 
 Smoothing parameters:
- alpha: 0.7366402
- beta : 0.3754643
+ alpha: 0.6041548
+ beta : 0.5173117
  gamma: FALSE
 
 Coefficients:
-      [,1]
-a 195.5631
-b  20.2911
+       [,1]
+a 190.94642
+b  19.74749
 ```
   
 Holt's Exponential Smoothing HoltWinters Filtering (2)
@@ -208,24 +208,24 @@ Time Series:
 Start = 1810 
 End = 1970 
 Frequency = 0.1 
-           xhat      level       trend
-1810  13.540846   8.076794  5.46405157
-1820   8.067937   5.589377  2.47855930
-1830   1.295804   1.342431 -0.04662757
-1840  11.169752   8.508333  2.66141943
-1850  24.813568  19.154254  5.65931439
-1860  28.949653  23.706138  5.24351410
-1870  30.839664  26.511564  4.32809914
-1880  44.897286  37.913292  6.98399376
-1890  49.369624  43.071244  6.29838043
-1900  66.469097  57.222313  9.24678441
-1910  86.215256  74.102428 12.11282746
-1920 111.676508  95.919924 15.75658358
-1930 118.868582 105.449876 13.41870596
-1940 137.858816 122.919235 14.93958128
-1950 149.565214 135.508203 14.05701022
-1960 153.924587 142.514767 11.40981958
-1970 189.419618 171.435192 17.98442599
+           xhat      level     trend
+1810  -7.316911  -2.473432 -4.843479
+1820   5.280086   4.177415  1.102671
+1830  12.119483   9.060935  3.058548
+1840  15.900153  12.595405  3.304748
+1850  25.248195  19.883048  5.365146
+1860  23.867795  20.802473  3.065322
+1870  34.158283  28.629615  5.528668
+1880  36.822237  32.270264  4.551973
+1890  52.770291  44.332942  8.437349
+1900  61.102095  52.700731  8.401365
+1910  85.934855  71.931377 14.003479
+1920 104.201215  88.744351 15.456864
+1930 125.165097 107.830672 17.334425
+1940 148.547073 129.150799 19.396275
+1950 145.626788 133.839113 11.787675
+1960 159.691270 147.127341 12.563928
+1970 186.348296 168.979471 17.368824
 ```
 
 Holt's Exponential Smoothing HoltWinters Filtering (3)
@@ -839,11 +839,11 @@ Winter's Exponential Smoothing HoltWinters Filtering (8)
 Compare HoltWinters() vs ets()
 ========================================================
 
-- Optimizing different criterion. The former optimizing the MSE, and the later optimizing the likehood function.
+- Optimizing different criterion. The former optimizing the MSE, and the later optimizing the likelihood function.
 
 - The two functions use different optimization routines and different starting values. 
 
-- ets() searches over a restricted parameter space to ensure the resulting model is forecastable. HoltWinters() ignores this issue (it was written before the problem was even discovered).
+- ets() searches over a restricted parameter space to ensure the resulting model is useful for forecasting. HoltWinters() ignores this issue (it was written before the problem was even discovered).
 
 - According to Hyndman, ets() is usually more reliable.
 
