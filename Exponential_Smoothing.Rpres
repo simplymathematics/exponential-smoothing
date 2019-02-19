@@ -1,6 +1,6 @@
 Exponential Smoothing
 ========================================================
-author: CUNY 624
+author: Vikas, Ann, simplymathematics
 date: 2/19/19
 autosize: true
 
@@ -95,7 +95,7 @@ Simple Exponential Smoothing HoltWinters Filtering (1)
 ========================================================
 
 ```{r, echo = TRUE}
-## preparee a time series dataset
+## prepare a time series dataset
 x <- uspop + rnorm(uspop, sd = 5);
 ```
 <center>
